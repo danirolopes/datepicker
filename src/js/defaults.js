@@ -115,6 +115,7 @@ export default {
 
   // Filter each date item (return `false` to disable a date item)
   filter: null,
+  filterHighlight: null,
 
   // Event shortcuts
   show: null,

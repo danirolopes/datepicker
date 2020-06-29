@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2020-06-29T18:55:12.525Z
  */
 
 import $ from 'jquery';
@@ -94,6 +94,7 @@ var DEFAULTS = {
   zIndex: 1000,
   // Filter each date item (return `false` to disable a date item)
   filter: null,
+  filterHighlight: null,
   // Event shortcuts
   show: null,
   hide: null,
@@ -192,8 +193,6 @@ function parseFormat(format) {
       case 'yy':
         format.hasYear = true;
         break;
-
-      default:
     }
   });
   return format;
@@ -522,8 +521,6 @@ var methods = {
             case 'm':
               date.setMonth(value - 1);
               break;
-
-            default:
           }
         }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
 
@@ -535,8 +532,6 @@ var methods = {
             case 'd':
               date.setDate(value);
               break;
-
-            default:
           }
         });
       }
@@ -746,8 +741,6 @@ var handlers = {
         this.hideView();
         this.pick('day');
         break;
-
-      default:
     }
   },
   globalClick: function globalClick(_ref) {
@@ -936,6 +929,7 @@ var render = {
         currentDate = this.date;
     var disabledClass = options.disabledClass,
         filter = options.filter,
+        filterHighlight = options.filterHighlight,
         months = options.months,
         weekStart = options.weekStart,
         yearSuffix = options.yearSuffix;
@@ -993,9 +987,15 @@ var render = {
         disabled = filter.call($element, prevViewDate, 'day') === false;
       }
 
+      if (filterHighlight) {
+        highlighted = filterHighlight.call($element, prevViewDate, 'day') === false;
+      } else {
+        highlighted = prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay;
+      }
+
       prevItems.push(this.createItem({
         disabled: disabled,
-        highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay,
+        highlighted: highlighted,
         muted: true,
         picked: prevViewYear === year && prevViewMonth === month && i === day,
         text: i,

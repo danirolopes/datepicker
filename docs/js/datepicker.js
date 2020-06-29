@@ -5,14 +5,14 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2020-06-29T18:55:12.525Z
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
   (global = global || self, factory(global.jQuery));
-}(this, function ($) { 'use strict';
+}(this, (function ($) { 'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
@@ -100,6 +100,7 @@
     zIndex: 1000,
     // Filter each date item (return `false` to disable a date item)
     filter: null,
+    filterHighlight: null,
     // Event shortcuts
     show: null,
     hide: null,
@@ -198,8 +199,6 @@
         case 'yy':
           format.hasYear = true;
           break;
-
-        default:
       }
     });
     return format;
@@ -528,8 +527,6 @@
               case 'm':
                 date.setMonth(value - 1);
                 break;
-
-              default:
             }
           }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
 
@@ -541,8 +538,6 @@
               case 'd':
                 date.setDate(value);
                 break;
-
-              default:
             }
           });
         }
@@ -752,8 +747,6 @@
           this.hideView();
           this.pick('day');
           break;
-
-        default:
       }
     },
     globalClick: function globalClick(_ref) {
@@ -942,6 +935,7 @@
           currentDate = this.date;
       var disabledClass = options.disabledClass,
           filter = options.filter,
+          filterHighlight = options.filterHighlight,
           months = options.months,
           weekStart = options.weekStart,
           yearSuffix = options.yearSuffix;
@@ -999,9 +993,15 @@
           disabled = filter.call($element, prevViewDate, 'day') === false;
         }
 
+        if (filterHighlight) {
+          highlighted = filterHighlight.call($element, prevViewDate, 'day') === false;
+        } else {
+          highlighted = prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay;
+        }
+
         prevItems.push(this.createItem({
           disabled: disabled,
-          highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay,
+          highlighted: highlighted,
           muted: true,
           picked: prevViewYear === year && prevViewMonth === month && i === day,
           text: i,
@@ -1529,4 +1529,4 @@
     };
   }
 
-}));
+})));

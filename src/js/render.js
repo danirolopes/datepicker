@@ -157,6 +157,7 @@ export default {
     const {
       disabledClass,
       filter,
+      filterHighlight,
       months,
       weekStart,
       yearSuffix,
@@ -219,14 +220,20 @@ export default {
       if (!disabled && filter) {
         disabled = filter.call($element, prevViewDate, 'day') === false;
       }
-
-      prevItems.push(this.createItem({
-        disabled,
-        highlighted: (
+      let highlighted = false;
+      if (filterHighlight) {
+        highlighted = filterHighlight.call($element, prevViewDate, 'day') === false;
+      } else {
+        highlighted = (
           prevViewYear === thisYear
           && prevViewMonth === thisMonth
           && prevViewDate.getDate() === thisDay
-        ),
+        );
+      }
+
+      prevItems.push(this.createItem({
+        disabled,
+        highlighted,
         muted: true,
         picked: prevViewYear === year && prevViewMonth === month && i === day,
         text: i,
