@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2020-06-29T18:55:12.525Z
+ * Date: 2020-06-29T20:08:39.020Z
  */
 
 'use strict';
@@ -991,8 +991,10 @@ var render = {
         disabled = filter.call($element, prevViewDate, 'day') === false;
       }
 
+      var highlighted = false;
+
       if (filterHighlight) {
-        highlighted = filterHighlight.call($element, prevViewDate, 'day') === false;
+        highlighted = filterHighlight.call($element, prevViewDate, 'day') === true;
       } else {
         highlighted = prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay;
       }
@@ -1045,10 +1047,18 @@ var render = {
         _disabled = filter.call($element, date, 'day') === false;
       }
 
+      var _highlighted = false;
+
+      if (filterHighlight) {
+        _highlighted = filterHighlight.call($element, date, 'day') === true;
+      } else {
+        _highlighted = nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === thisDay;
+      }
+
       nextItems.push(this.createItem({
         disabled: _disabled,
         picked: picked,
-        highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === thisDay,
+        highlighted: _highlighted,
         muted: true,
         text: i,
         view: 'day next'
@@ -1076,13 +1086,21 @@ var render = {
         _disabled2 = filter.call($element, _date, 'day') === false;
       }
 
+      var _highlighted2 = false;
+
+      if (filterHighlight) {
+        _highlighted2 = filterHighlight.call($element, _date, 'day') === true;
+      } else {
+        _highlighted2 = viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay;
+      }
+
       var _picked = viewYear === year && viewMonth === month && i === day;
 
       var view = _picked ? 'day picked' : 'day';
       items.push(this.createItem({
         disabled: _disabled2,
         picked: _picked,
-        highlighted: viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay,
+        highlighted: _highlighted2,
         text: i,
         view: _disabled2 ? 'day disabled' : view
       }));
