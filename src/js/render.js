@@ -222,7 +222,7 @@ export default {
       }
       let highlighted = false;
       if (filterHighlight) {
-        highlighted = filterHighlight.call($element, prevViewDate, 'day') === false;
+        highlighted = filterHighlight.call($element, prevViewDate, 'day') === true;
       } else {
         highlighted = (
           prevViewYear === thisYear
@@ -282,14 +282,19 @@ export default {
         disabled = filter.call($element, date, 'day') === false;
       }
 
+      let highlighted = false;
+      if (filterHighlight) {
+        highlighted = filterHighlight.call($element, date, 'day') === true;
+      } else {
+        highlighted = (nextViewYear === thisYear && nextViewMonth === thisMonth
+          && date.getDate() === thisDay);
+      }
+
+
       nextItems.push(this.createItem({
         disabled,
         picked,
-        highlighted: (
-          nextViewYear === thisYear
-          && nextViewMonth === thisMonth
-          && date.getDate() === thisDay
-        ),
+        highlighted,
         muted: true,
         text: i,
         view: 'day next',
@@ -317,17 +322,21 @@ export default {
         disabled = filter.call($element, date, 'day') === false;
       }
 
-      const picked = viewYear === year && viewMonth === month && i === day;
-      const view = picked ? 'day picked' : 'day';
+      let highlighted = false;
+      if (filterHighlight) {
+        highlighted = filterHighlight.call($element, date, 'day') === true;
+      } else {
+        highlighted = (viewYear === thisYear && viewMonth === thisMonth
+          && date.getDate() === thisDay);
+      }
 
+      const picked = viewYear === year && viewMonth === month && i === day;
+
+      const view = picked ? 'day picked' : 'day';
       items.push(this.createItem({
         disabled,
         picked,
-        highlighted: (
-          viewYear === thisYear
-          && viewMonth === thisMonth
-          && date.getDate() === thisDay
-        ),
+        highlighted,
         text: i,
         view: disabled ? 'day disabled' : view,
       }));
