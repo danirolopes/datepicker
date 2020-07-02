@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2020-06-29T20:08:39.020Z
+ * Date: 2020-07-02T21:25:27.561Z
  */
 
 'use strict';
@@ -1232,6 +1232,9 @@ function () {
 
       if (this.inline) {
         $(options.container || $this).append($picker.addClass("".concat(NAMESPACE, "-inline")));
+        $picker.css({
+          zIndex: parseInt(options.zIndex, 10)
+        });
       } else {
         $(document.body).append($picker.addClass("".concat(NAMESPACE, "-dropdown")));
         $picker.addClass(CLASS_HIDE).css({
@@ -1544,3 +1547,4 @@ if ($.fn) {
     return this;
   };
 }
+//# sourceMappingURL=datepicker.common.js.map

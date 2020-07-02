@@ -145,6 +145,9 @@ class Datepicker {
 
     if (this.inline) {
       $(options.container || $this).append($picker.addClass(`${NAMESPACE}-inline`));
+      $picker.css({
+        zIndex: parseInt(options.zIndex, 10),
+      });
     } else {
       $(document.body).append($picker.addClass(`${NAMESPACE}-dropdown`));
       $picker.addClass(CLASS_HIDE).css({
