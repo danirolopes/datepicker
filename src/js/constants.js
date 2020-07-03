@@ -12,7 +12,16 @@ export const EVENT_SCROLL = `scroll.${NAMESPACE}`;
 export const EVENT_SHOW = `show.${NAMESPACE}`;
 export const EVENT_TOUCH_START = `touchstart.${NAMESPACE}`;
 export const CLASS_HIDE = `${NAMESPACE}-hide`;
-export const LANGUAGES = {};
+export const LANGUAGES = {
+  'pt-BR': {
+    format: 'dd/mm/yyyy',
+    days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    daysMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  },
+};
 export const VIEWS = {
   DAYS: 0,
   MONTHS: 1,

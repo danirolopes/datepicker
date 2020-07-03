@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2020-07-02T21:25:27.561Z
+ * Date: 2020-07-03T02:59:22.195Z
  */
 
 import $ from 'jquery';
@@ -115,7 +115,16 @@ var EVENT_SCROLL = "scroll.".concat(NAMESPACE);
 var EVENT_SHOW = "show.".concat(NAMESPACE);
 var EVENT_TOUCH_START = "touchstart.".concat(NAMESPACE);
 var CLASS_HIDE = "".concat(NAMESPACE, "-hide");
-var LANGUAGES = {};
+var LANGUAGES = {
+  'pt-BR': {
+    format: 'dd/mm/yyyy',
+    days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+    daysMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+  }
+};
 var VIEWS = {
   DAYS: 0,
   MONTHS: 1,
@@ -1543,4 +1552,3 @@ if ($.fn) {
     return this;
   };
 }
-//# sourceMappingURL=datepicker.esm.js.map
